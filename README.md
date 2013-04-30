@@ -21,8 +21,7 @@ Dependencies
 ===========
 
 - [Grack](http://github.com/schacon/grack)
-- The [RJGit](http://github.com/repotag/rjgit) gem, which requires jruby:
-$ gem install rjgit
+- The [RJGit](http://github.com/repotag/rjgit) gem
 
 License
 ========================
