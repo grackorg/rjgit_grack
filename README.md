@@ -1,7 +1,7 @@
 rjgit_grack
 ===========
 
-Alternative Adapter for [grack](http://github.com/schacon/grack); uses the [RJGit](http://github.com/repotag/rjgit) gem for a pure jruby interface to git repo's. Together with Grack, this yields a pure jruby implementation of git's smart-http protocol.
+Alternative Adapter for [grack](http://github.com/schacon/grack); uses the [RJGit](http://github.com/repotag/rjgit) gem for a pure jruby interface to git repos. Together with Grack, this yields a pure jruby implementation of git's smart-http protocol.
 
 Installation
 ===========
