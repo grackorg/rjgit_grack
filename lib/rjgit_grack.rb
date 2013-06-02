@@ -1,1 +1,1 @@
-require "lib/rjgit_adapter.rb"
+require "rjgit_adapter.rb"
