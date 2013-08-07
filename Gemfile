@@ -6,5 +6,5 @@ gem 'coveralls', require: false
 group :test do
   gem "test"
   gem "mocha"
-  gem "rcov"
+  gem "simplecov", :require => false
 end

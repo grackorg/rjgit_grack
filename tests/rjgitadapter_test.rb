@@ -36,28 +36,28 @@ class RJGitAdapterTest < Test::Unit::TestCase
     RJGit::RJGitUploadPack.any_instance.stubs(:process).returns(StringIO.new("ran RJGitUploadPack.process"),nil)
     assert_equal "ran RJGitUploadPack.process", @test_git.upload_pack(example, {:msg => "0000\n"})
     RJGit::RJGitUploadPack.any_instance.stubs(:process).returns(StringIO.new("ran RJGitUploadPack.process"),nil)
-    @test_git.upload_pack(example, {:msg => "0000\n"}) do |pipe|
+    @test_git.upload_pack(test_repo, {:msg => "0000\n"}) do |pipe|
       assert_equal "ran RJGitUploadPack.process", pipe.read
     end
     RJGit::RJGitUploadPack.any_instance.stubs(:advertise_refs).returns("refs advertised")
-    assert_equal "refs advertised", @test_git.upload_pack(example, {:advertise_refs => true})
+    assert_equal "refs advertised", @test_git.upload_pack(test_repo, {:advertise_refs => true})
   end
   
   def test_receive_pack
     assert_equal NON_EXISTENT_REPOSITORY_AD, @test_git.receive_pack(File.join('/','norepository'), {:advertise_refs=> true})
     RJGit::RJGitReceivePack.any_instance.stubs(:process).returns(StringIO.new("ran RJGitReceivePack.process"),nil)
-    assert_equal "ran RJGitReceivePack.process", @test_git.receive_pack(example, {:msg => "0000\n"})
+    assert_equal "ran RJGitReceivePack.process", @test_git.receive_pack(test_repo, {:msg => "0000\n"})
     RJGit::RJGitReceivePack.any_instance.stubs(:process).returns(StringIO.new("ran RJGitReceivePack.process"),nil)
-    @test_git.receive_pack(example, {:msg => "0000\n"}) do |pipe|
+    @test_git.receive_pack(test_repo, {:msg => "0000\n"}) do |pipe|
       assert_equal "ran RJGitReceivePack.process", pipe.read
     end
     RJGit::RJGitReceivePack.any_instance.stubs(:advertise_refs).returns("refs advertised")
-    assert_equal "refs advertised", @test_git.receive_pack(example, {:advertise_refs => true})
+    assert_equal "refs advertised", @test_git.receive_pack(test_repo, {:advertise_refs => true})
   end
   
   def test_update_server
     RJGit::Repo.any_instance.stubs(:update_server_info).returns(true)
-    assert_equal true, @test_git.update_server_info(example)
+    assert_equal true, @test_git.update_server_info(test_repo)
   end
   
   def test_get_config_setting
