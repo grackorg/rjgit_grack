@@ -22,6 +22,13 @@ config = {
 }
 ```
 
+Specs
+======
+
+Run the specs:
+
+$ rake
+
 Dependencies
 ===========
 
