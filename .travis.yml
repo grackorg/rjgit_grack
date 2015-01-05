@@ -1,7 +1,6 @@
 language: ruby
 rvm:
-- jruby-19mode # JRuby in 1.9 mode
-- jruby-18mode
+- jruby-1.7.17
 jdk:
 - oraclejdk7
 - openjdk7
