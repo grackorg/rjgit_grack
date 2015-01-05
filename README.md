@@ -1,9 +1,8 @@
+rjgit_grack
+===========
 [![Gem Version](https://badge.fury.io/rb/rjgit_grack.svg)](http://badge.fury.io/rb/rjgit_grack)
 [![Build Status](https://travis-ci.org/dometto/rjgit_grack.svg?branch=master)](https://travis-ci.org/dometto/rjgit_grack)
 [![Dependency Status](https://gemnasium.com/dometto/rjgit_grack.svg)](https://gemnasium.com/dometto/rjgit_grack)
-
-rjgit_grack
-===========
 
 Alternative Adapter for [grack](http://github.com/schacon/grack); uses the [RJGit](http://github.com/repotag/rjgit) gem for a pure jruby interface to git repos. Together with Grack, this yields a pure jruby implementation of git's smart-http protocol.
 
