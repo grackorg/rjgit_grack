@@ -6,13 +6,13 @@ Alternative Adapter for [grack](http://github.com/schacon/grack); uses the [RJGi
 Installation
 ===========
 
-$ gem install rjgit_grack
+ `gem install rjgit_grack`
 
 Usage
 ===========
 
 1. Get grack.
-2. After requiring rjgit_adapter.rb, you can tell Grack to use the RJGitAdapter by editing its configuration, like so:
+2. After requiring `rjgit_adapter.rb`, you can tell Grack to use the `RJGitAdapter` by editing its configuration, like so:
 
 ```ruby
 config = {
@@ -27,7 +27,7 @@ Specs
 
 Run the specs:
 
-$ rake
+`rake`
 
 Dependencies
 ===========
