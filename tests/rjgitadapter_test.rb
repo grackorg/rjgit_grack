@@ -3,7 +3,7 @@ require 'test/unit'
 require 'mocha/setup'
 require "stringio"
 
-require './lib/rjgit_adapter'
+require './lib/rjgit_grack'
 
 
 class RJGitAdapterTest < Test::Unit::TestCase
@@ -32,7 +32,7 @@ class RJGitAdapterTest < Test::Unit::TestCase
   end
   
   def test_upload_pack
-    assert_equal "0000", @test_git.upload_pack(File.join('/','norepository'), {:advertise_refs=> true})
+    assert_equal "00a80000000000000000000000000000000000000000 capabilities^{}\u0000 include-tag multi_ack_detailed multi_ack ofs-delta side-band side-band-64k thin-pack no-progress shallow \n0000", @test_git.upload_pack(File.join('/','norepository'), {:advertise_refs=> true})
     RJGit::RJGitUploadPack.any_instance.stubs(:process).returns(StringIO.new("ran RJGitUploadPack.process"),nil)
     assert_equal "ran RJGitUploadPack.process", @test_git.upload_pack(example, {:msg => "0000\n"})
     RJGit::RJGitUploadPack.any_instance.stubs(:process).returns(StringIO.new("ran RJGitUploadPack.process"),nil)

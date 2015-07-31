@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 
 gem 'rake'
-gem 'rjgit'
 gem 'coveralls', require: false
 
 group :test do
@@ -9,3 +8,5 @@ group :test do
   gem "mocha"
   gem "simplecov", :require => false
 end
+
+gemspec

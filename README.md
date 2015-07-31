@@ -15,7 +15,7 @@ Usage
 ===========
 
 1. Get grack.
-2. After requiring `rjgit_adapter.rb`, you can tell Grack to use the `RJGitAdapter` by editing its configuration, like so:
+2. After requiring `rjgit_grack.rb`, you can tell Grack to use the `RJGitAdapter` by editing its configuration, like so:
 
 ```ruby
 config = {
