@@ -6,7 +6,7 @@ gem 'coveralls', require: false
 group :test do
   gem "test"
   gem "mocha"
-  gem "grack", ">= 0.1.0.pre1"
+  gem "grack", :git => 'https://github.com/grackorg/grack'
   gem "simplecov", :require => false
 end
 

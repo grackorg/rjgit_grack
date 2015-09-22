@@ -17,11 +17,12 @@ module Grack
         end
       return nil unless pack
       if opts[:advertise_refs] then
-        io_out.write pack.advertise_refs
+        io_out.write advertisement_prefix(pack_type)
+        result = pack.advertise_refs
       else
-         result = pack.process(io_in.read)
-         io_out.write(result.read)
+        result = pack.process(io_in.read).first.read
       end
+      io_out.write(result)
     end
 
     def update_server_info

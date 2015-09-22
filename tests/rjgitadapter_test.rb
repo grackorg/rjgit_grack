@@ -31,7 +31,7 @@ class RJGitAdapterTest < Test::Unit::TestCase
     output = StringIO.new
     RJGit::RJGitUploadPack.any_instance.expects(:advertise_refs).returns("refs advertised")
     @test_git.handle_pack('git-upload-pack', nil, output, {:advertise_refs => true})    
-    assert_equal "refs advertised", output.string
+    assert_equal "001e# service=git-upload-pack\n0000refs advertised", output.string
   end
 
   def test_receive_pack
@@ -39,7 +39,7 @@ class RJGitAdapterTest < Test::Unit::TestCase
     result = "result"
     input = StringIO.new(msg)
     output = StringIO.new
-    RJGit::RJGitReceivePack.any_instance.expects(:process).with(msg).returns(StringIO.new(result))
+    RJGit::RJGitReceivePack.any_instance.expects(:process).with(msg).returns([StringIO.new(result), nil])
     @test_git.handle_pack('git-receive-pack', input, output)
     assert_equal result, output.string
   end
@@ -49,7 +49,7 @@ class RJGitAdapterTest < Test::Unit::TestCase
     result = "result"
     input = StringIO.new(msg)
     output = StringIO.new
-    RJGit::RJGitUploadPack.any_instance.expects(:process).with(msg).returns(StringIO.new(result))
+    RJGit::RJGitUploadPack.any_instance.expects(:process).with(msg).returns([StringIO.new(result), nil])
     @test_git.handle_pack('git-upload-pack', input, output)
     assert_equal result, output.string
   end
