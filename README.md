@@ -1,10 +1,10 @@
 rjgit_grack
 ===========
 [![Gem Version](https://badge.fury.io/rb/rjgit_grack.svg)](http://badge.fury.io/rb/rjgit_grack)
-[![Build Status](https://travis-ci.org/dometto/rjgit_grack.svg?branch=master)](https://travis-ci.org/dometto/rjgit_grack)
-[![Dependency Status](https://gemnasium.com/dometto/rjgit_grack.svg)](https://gemnasium.com/dometto/rjgit_grack)
+[![Build Status](https://travis-ci.org/dometto/rjgit_grack.svg?branch=master)](https://travis-ci.org/grackorg/rjgit_grack)
+[![Dependency Status](https://gemnasium.com/dometto/rjgit_grack.svg)](https://gemnasium.com/grackorg/rjgit_grack)
 
-Alternative Adapter for [grack](http://github.com/schacon/grack); uses the [RJGit](http://github.com/repotag/rjgit) gem for a pure jruby interface to git repos. Together with Grack, this yields a pure jruby implementation of git's smart-http protocol.
+Alternative Adapter for [grack](http://github.com/grackorg/grack); uses the [RJGit](http://github.com/repotag/rjgit) gem for a pure jruby interface to git repos. Together with Grack, this yields a pure jruby implementation of git's smart-http protocol.
 
 Installation
 ===========
@@ -15,14 +15,21 @@ Usage
 ===========
 
 1. Get grack.
-2. After requiring `rjgit_grack.rb`, you can tell Grack to use the `RJGitAdapter` by editing its configuration, like so:
+2. After requiring `rjgit_grack.rb`, you can tell Grack to use the `RJGitAdapter` by editing its configuration, for example:
 
 ```ruby
+require 'grack/app'
+require 'grack/git_adapter'
+require 'rjgit_grack'
+
 config = {
-  :adapter => Grack::RJGitAdapter,
-  :upload_pack => true,
-  :receive_pack => true,
+  :root => '/path/to/bare/repositories',
+  :allow_push => true,
+  :allow_pull => true,
+  :git_adapter_factory => ->{ Grack::RJGitAdapter.new }
 }
+
+run Grack::App.new(config)
 ```
 
 Specs
@@ -35,8 +42,8 @@ Run the specs:
 Dependencies
 ===========
 
-- [Grack](http://github.com/schacon/grack)
-- The [RJGit](http://github.com/repotag/rjgit) gem, which requires jruby
+- [Grack](http://github.com/grackorg/grack) >= 0.1.0.pre
+- The [RJGit](http://github.com/repotag/rjgit) gem, which requires JRuby
 
 License
 ========================
