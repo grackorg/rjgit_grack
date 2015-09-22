@@ -42,7 +42,7 @@ Run the specs:
 Dependencies
 ===========
 
-- [Grack](http://github.com/grackorg/grack) >= 0.1.0.pre
+- [Grack](http://github.com/grackorg/grack) >= 0.1.0.pre2
 - The [RJGit](http://github.com/repotag/rjgit) gem, which requires JRuby
 
 License
