@@ -4,7 +4,8 @@ gem 'rake'
 gem 'coveralls', require: false
 
 group :test do
-  gem "test"
+  gem "minitest"
+  gem "rack-test"
   gem "mocha"
   gem "grack", :git => 'https://github.com/grackorg/grack'
   gem "simplecov", :require => false
