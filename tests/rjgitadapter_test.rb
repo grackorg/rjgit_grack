@@ -49,17 +49,20 @@ class HookTest < RJGitAdapterTest
 
   def hooks
     {
-      :postUpload => Proc.new do |pack, wants, haves|
+      :postUpload => Proc.new do |stats|
         @postupload = true
+        @stats = stats
       end,
-      :preUpload => Proc.new do |pack, wants, haves|
+      :preUpload => Proc.new do |wants, haves|
         @preupload = true
+        @wants = wants
+        @haves = haves
       end,
-      :preReceive => Proc.new do |pack, commands|
-        @prereceive = true
+      :preReceive => Proc.new do |commands|
+        @prereceive = commands
       end,
-      :postReceive => Proc.new do |pack, commands|
-        @postreceive = true
+      :postReceive => Proc.new do |commands|
+        @postreceive = commands
       end
     }
   end
@@ -100,13 +103,18 @@ class HookTest < RJGitAdapterTest
       {'CONTENT_TYPE' => 'application/x-git-receive-pack-request'}
     )
 
-    assert_equal true, @prereceive
-    assert_equal true, @postreceive
+    ref_info = {:ref_name=>"refs/heads/master", :old_id=>"cb067e06bdf6e34d4abebf6cf2de85d65a52c65e", :new_id=>"9a95842eb477aec2ee7938e354a254c35857e94e", :type=>"UPDATE"}
+    assert_equal ref_info, @prereceive.first
+    ref_info[:result] = "OK"
+    assert_equal ref_info, @postreceive.first
   end
 
   def test_upload_hook
     assert_equal false, @preupload
     assert_equal false, @postupload
+    assert_equal nil, @wants
+    assert_equal nil, @haves
+    assert_equal nil, @stats
     data = "0090want cb067e06bdf6e34d4abebf6cf2de85d65a52c65e multi_ack_detailed no-done side-band-64k thin-pack ofs-delta agent=git/1.9.5.(Apple.Git-50.3)\n0032want cb067e06bdf6e34d4abebf6cf2de85d65a52c65e\n00000009done\n"
 
     post(
@@ -116,7 +124,10 @@ class HookTest < RJGitAdapterTest
     )
 
     assert_equal true, @preupload
+    assert_equal false, @wants.empty?
+    assert_equal true, @haves.is_a?(Array)
     assert_equal true, @postupload
+    assert_equal true, @stats.is_a?(org.eclipse.jgit.storage.pack.PackStatistics)
   end
 
 end

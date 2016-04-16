@@ -10,14 +10,29 @@ module Grack
     class PreReceiveHook < Hook
       include org.eclipse.jgit.transport.PreReceiveHook
       def onPreReceive(pack, commands)
-        @hook.call(pack, commands.to_a)
+        @hook.call(commands.to_a.map {|cmd|
+          {
+            :ref_name => cmd.getRefName,
+            :old_id => cmd.getOldId.getName,
+            :new_id => cmd.getNewId.getName,
+            :type => cmd.getType.toString,
+          }
+        })
       end
     end
 
     class PostReceiveHook < Hook
       include org.eclipse.jgit.transport.PostReceiveHook
       def onPostReceive(pack, commands)
-        @hook.call(pack, commands.to_a)
+        @hook.call(commands.to_a.map {|cmd|
+          {
+            :ref_name => cmd.getRefName,
+            :old_id => cmd.getOldId.getName,
+            :new_id => cmd.getNewId.getName,
+            :type => cmd.getType.toString,
+            :result => cmd.getResult.toString
+          }
+        })
       end
     end
 
@@ -32,7 +47,7 @@ module Grack
       include org.eclipse.jgit.transport.PreUploadHook
 
       def onSendPack(pack, wants, haves)
-        @hook.call(pack, wants.to_a, haves.to_a)
+        @hook.call(wants.to_a.map {|obj| obj.getName}, haves.to_a.map {|obj| obj.getName})
       end
 
       def onBeginNegotiateRound(pack, wants, cnt_offered); end
