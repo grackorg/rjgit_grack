@@ -1,11 +1,13 @@
-require "rjgit"
+require 'rjgit'
+require 'hooks'
 
 module Grack
 
   class RJGitAdapter < GitAdapter
 
-    def initialize
+    def initialize(hooks = nil)
       @repository_path = nil
+      @hooks = hooks
     end
   
     def handle_pack(pack_type, io_in, io_out, opts = {})
@@ -14,8 +16,9 @@ module Grack
           RJGit::RJGitUploadPack.new(repo)
         when 'git-receive-pack'
           RJGit::RJGitReceivePack.new(repo)
-        end
-      return nil unless pack
+      end
+      return nil if pack.nil?
+      set_hooks(pack) if @hooks
       if opts[:advertise_refs] then
         io_out.write advertisement_prefix(pack_type)
         result = pack.advertise_refs
@@ -49,6 +52,16 @@ module Grack
 
     def repo
       RJGit::Repo.new(repository_path)
+    end
+
+    def set_hooks(pack)
+      if pack.is_a?(RJGit::RJGitUploadPack)
+        pack.jpack.setPostUploadHook(Grack::Hooks::PostUploadHook.new(@hooks[:postUpload])) if @hooks[:postUpload]
+        pack.jpack.setPreUploadHook(Grack::Hooks::PreUploadHook.new(@hooks[:preUpload])) if @hooks[:preUpload]
+      elsif pack.is_a?(RJGit::RJGitReceivePack)
+        pack.jpack.setPostReceiveHook(Grack::Hooks::PostReceiveHook.new(@hooks[:postReceive])) if @hooks[:postReceive]
+        pack.jpack.setPreReceiveHook(Grack::Hooks::PreReceiveHook.new(@hooks[:preReceive])) if @hooks[:preReceive]
+      end
     end
   
   end
