@@ -50,11 +50,11 @@ This adapter allows you to specify hooks to be called when receive operations (i
 You can specify the following hooks:
   * `:preReceive` executed immediately before a receive-operation is performed. Yields an `Array` with `Hash` objects containing info about each ref that is about to be pushed, of the following form:
     ```
-      {:ref_name => 'refs/heads/masters', :old_id => 'somesha1', :new_id => 'someothersha1', :type => "FAST_FORWARD", :result => "OK"}
+      {:ref_name => 'refs/heads/masters', :old_id => 'somesha1', :new_id => 'someothersha1', :type => "FAST_FORWARD"}
     ```
   * `:postReceive` executed after a receive-operation is completed. Yields an `Array` with `Hash` objects for each ref that was pushed, of the same form as above, plus a `:result` field. The result will be a `String`, and can have one of the values [defined by JGit](http://download.eclipse.org/jgit/site/4.3.0.201604071810-r/apidocs/index.html).
-  * `:preReceive` executed immediately before an upload-operation is performed, i.e. before data is sent to the client. Yields an `Array` of `String` object-id's (SHA1-hashes) already in common between client and server.
-  * `:postReceive` executed after an upload-operation to a client is complete. Returns an `org.eclipse.jgit.storage.pack.PackStatistics` object (see [here](http://download.eclipse.org/jgit/site/4.3.0.201604071810-r/apidocs/org/eclipse/jgit/storage/pack/PackStatistics.html)).
+  * `:preUpload` executed immediately before an upload-operation is performed, i.e. before data is sent to the client. Yields an `Array` of `String` object-id's (SHA1-hashes) already in common between client and server.
+  * `:postUpload` executed after an upload-operation to a client is complete. Returns an `org.eclipse.jgit.storage.pack.PackStatistics` object (see [here](http://download.eclipse.org/jgit/site/4.3.0.201604071810-r/apidocs/org/eclipse/jgit/storage/pack/PackStatistics.html)).
 
 Note that JGit blocks all read and write operations on the repository until a hook is complete, so the hooks should only contain code that runs quickly (e.g. running workers or threads to perform the heavy work).
 
