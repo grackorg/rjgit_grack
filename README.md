@@ -14,7 +14,7 @@ Installation
 Usage
 ===========
 
-1. Get [grack](https://github.com/grackorgs/grack).
+1. Get [grack](https://github.com/grackorg/grack).
 2. After requiring `rjgit_grack.rb`, you can tell Grack to use the `RJGitAdapter` by editing its configuration, for example:
 
 ```ruby
