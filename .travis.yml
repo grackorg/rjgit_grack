@@ -1,9 +1,18 @@
 language: ruby
-sudo: false
-rvm:
-- jruby-1.7.17-18mode
-- jruby-1.7.17-19mode
-jdk:
-- oraclejdk7
-- openjdk7
-- oraclejdk8
+matrix:
+  include:
+    - rvm: jruby-9k
+      jdk: oraclejdk8
+      before-install: gem install bundler --no-ri --no-rdoc
+    - rvm: jruby-9k
+      jdk: openjdk8
+      before-install: gem install bundler --no-ri --no-rdoc
+
+# For OpenJDK 8 support
+# https://github.com/travis-ci/travis-ci/issues/2968
+dist: trusty
+
+addons:
+  # Fix OpenJDK builds
+  # https://github.com/travis-ci/travis-ci/issues/5227
+hostname: short-hostname
