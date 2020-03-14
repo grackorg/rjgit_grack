@@ -2,6 +2,7 @@ rjgit_grack
 ===========
 [![Gem Version](https://badge.fury.io/rb/rjgit_grack.svg)](http://badge.fury.io/rb/rjgit_grack)
 [![Build Status](https://travis-ci.org/grackorg/rjgit_grack.svg?branch=master)](https://travis-ci.org/grackorg/rjgit_grack.svg?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/grackorg/rjgit_grack/badge.svg?branch=master)](https://coveralls.io/github/grackorg/rjgit_grack?branch=master)
 [![Dependency Status](https://gemnasium.com/dometto/rjgit_grack.svg)](https://gemnasium.com/grackorg/rjgit_grack)
 
 Alternative Adapter for [grack](http://github.com/grackorg/grack); uses the [RJGit](http://github.com/repotag/rjgit) gem for a pure jruby interface to git repos. Together with Grack, this yields a pure jruby implementation of git's smart-http protocol.
@@ -19,11 +20,10 @@ Usage
 
 ```ruby
 require 'grack/app'
-require 'grack/git_adapter'
-require 'rjgit_grack'
+require 'grack/rjgit_adapter'
 
 config = {
-  :root => '/path/to/bare/repositories',
+  :root => '/tmp/',
   :allow_push => true,
   :allow_pull => true,
   :git_adapter_factory => ->{ Grack::RJGitAdapter.new }

@@ -1,13 +1,13 @@
 source 'https://rubygems.org'
 
 gem 'rake'
-gem 'coveralls', require: false
+gem 'coveralls', '~> 0.8.23', require: false
 
 group :test do
   gem "minitest"
   gem "rack-test"
   gem "mocha"
-  gem "grack", :git => 'https://github.com/grackorg/grack'
+  gem "grack"
   gem "simplecov", :require => false
 end
 

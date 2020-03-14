@@ -1,8 +1,11 @@
+require 'coveralls'
+Coveralls.wear!
+
 require 'rubygems'
 require 'minitest/autorun'
 require 'minitest/unit'
 require 'rack/test'
-require 'mocha/setup'
+require 'mocha/minitest'
 require 'stringio'
 require 'grack/app'
 
@@ -112,9 +115,9 @@ class HookTest < RJGitAdapterTest
   def test_upload_hook
     assert_equal false, @preupload
     assert_equal false, @postupload
-    assert_equal nil, @wants
-    assert_equal nil, @haves
-    assert_equal nil, @stats
+    assert_nil @wants
+    assert_nil @haves
+    assert_nil @stats
     data = "0090want cb067e06bdf6e34d4abebf6cf2de85d65a52c65e multi_ack_detailed no-done side-band-64k thin-pack ofs-delta agent=git/1.9.5.(Apple.Git-50.3)\n0032want cb067e06bdf6e34d4abebf6cf2de85d65a52c65e\n00000009done\n"
 
     post(
@@ -178,10 +181,10 @@ class RJGitAdapterAPITest < RJGitAdapterTest
   
   def test_get_config_setting
     assert_equal 'false', @test_git.config('core.bare')
-    assert_equal nil, @test_git.config('core.bare.nothing')
+    assert_nil @test_git.config('core.bare.nothing')
     assert_equal Hash, @test_git.config('core').class
     RJGit::Repo.any_instance.stubs(:config).raises(RuntimeError)
-    assert_equal nil, @test_git.config('core.bare')
+    assert_nil @test_git.config('core.bare')
   end
   
 end
