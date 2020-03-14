@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'rjgit_grack'
-  s.version = '0.4.0'
+  s.version = '0.5.0'
   s.date = '2020-03-14'
   s.summary = "Adapts grack (http://github.com/grackorg/grack) to use JGit."
   s.description = "Alternative Adapter for grack; uses the RJGit gem for a pure jruby interface to git repos. Together with Grack, this yields a pure JRuby implementation of git's smart-http protocol."
@@ -19,7 +19,8 @@ Gem::Specification.new do |s|
     README.md
     Rakefile
     lib/grack/hooks.rb
-    lib/grack/rjgit_grack.rb
+    lib/grack/rjgit_adapter.rb
+    lib/rjgit_grack.rb
     rjgit_grack.gemspec
   ]
   # = MANIFEST =
